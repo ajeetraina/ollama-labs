@@ -23,15 +23,27 @@ jobs:
       - name: Clean up previous build artifacts
         run: |
           rm -rf themes/ layouts/ assets/ public/
+          rm -f config.toml  # Remove old TOML config if it exists
 
       - name: Install Geekdoc theme
         run: |
           mkdir -p themes/hugo-geekdoc
           curl -L https://github.com/thegeeklab/hugo-geekdoc/releases/latest/download/hugo-geekdoc.tar.gz | tar -xz -C themes/hugo-geekdoc/ --strip-components=1
 
+      - name: List directories
+        run: |
+          echo "Current directory contents:"
+          ls -la
+          echo "\nThemes directory:"
+          ls -la themes/
+          echo "\nGeekdoc theme directory:"
+          ls -la themes/hugo-geekdoc/
+          echo "\nConfig file:"
+          cat config.yaml
+
       - name: Build
         run: |
-          hugo --minify
+          hugo --minify --themesDir ./themes --theme hugo-geekdoc
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
