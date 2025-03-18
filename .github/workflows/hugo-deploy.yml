@@ -25,78 +25,168 @@ jobs:
 
       - name: Clean existing files
         run: |
-          find . -maxdepth 1 -not -path './.git' -not -path '.' -not -path './.github' | xargs rm -rf
+          rm -rf themes/ content/ static/ config.* layouts/ public/ data/ archetypes/
 
       - name: Create basic Hugo site
         run: |
+          # Create a new Hugo site
           hugo new site . --force
-          git clone https://github.com/thegeeklab/hugo-geekdoc themes/hugo-geekdoc
+          
+          # Install Docsy theme
+          git clone --depth 1 https://github.com/google/docsy.git themes/docsy
+          cd themes/docsy
+          npm install
+          cd ../..
+          
+          # Create config.toml
           cat > config.toml << 'EOL'
           baseURL = "https://ajeetraina.github.io/ollama-labs/"
-          languageCode = "en-us"
           title = "Ollama Labs"
-          theme = "hugo-geekdoc"
+          theme = "docsy"
           
-          # Geekdoc required configuration
-          pygmentsUseClasses = true
+          # Language settings
+          contentDir = "content/en"
+          defaultContentLanguage = "en"
+          defaultContentLanguageInSubdir = false
+          
+          # Highlighting config
           pygmentsCodeFences = true
-          disablePathToLower = true
+          pygmentsUseClasses = false
+          pygmentsUseClassic = false
           
-          # Required if you want to render tags
-          [taxonomies]
-            tag = "tags"
-          
-          [markup]
-            [markup.goldmark.renderer]
-              unsafe = true
-            [markup.tableOfContents]
-              startLevel = 1
-              endLevel = 9
+          # Configure how URLs look like
+          [permalinks]
+          blog = "/:section/:year/:month/:day/:slug/"
           
           [params]
-            geekdocToC = 3
-            geekdocLogo = "logo.svg"
-            geekdocRepo = "https://github.com/ajeetraina/ollama-labs"
-            geekdocEditPath = "edit/main/content"
-            geekdocSearch = true
-            geekdocBreadcrumb = true
+            copyright = "The Collabnix Community"
+            privacy_policy = "https://collabnix.com/privacy-policy/"
+            
+            # Menu title if your navbar has a versions selector to access old versions of your site.
+            version_menu = "Releases"
+            
+            # Flag used in the "version-banner" partial to decide whether to display a 
+            # banner on every page indicating that this is an archived version of the docs.
+            # Set this flag to "true" if you want to display the banner.
+            archived_version = false
+            
+            # The version number for the version of the docs represented in this doc set.
+            # Used in the "version-banner" partial to display a version number for the 
+            # current doc set.
+            version = "0.0"
+            
+            # A link to latest version of the docs. Used in the "version-banner" partial to
+            # point people to the main doc site.
+            url_latest_version = "https://ollama.collabnix.com"
+            
+            # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
+            github_repo = "https://github.com/ajeetraina/ollama-labs"
+            # An optional link to a related project repo. For example, the sibling repository where your product code lives.
+            github_project_repo = "https://github.com/ollama/ollama"
+            
+            # Enable Algolia DocSearch
+            algolia_docsearch = false
+            
+            # Specify a value here if your content directory is not in your repo's root directory
+            github_subdir = ""
+            
+            # Google Custom Search Engine ID. Remove or comment out to disable search.
+            gcs_engine_id = "d72aa9b2712488cc3"
+            
+            # Enable Lunr.js offline search
+            offlineSearch = false
+            
+            # Enable syntax highlighting and copy buttons on code blocks with Prism
+            prism_syntax_highlighting = false
+            
+          [[menu.main]]
+            name = "Documentation"
+            weight = 1
+            url = "/docs/"
+          
+          [[menu.main]]
+            name = "Labs"
+            weight = 2
+            url = "/labs/"
+            
+          [[menu.main]]
+            name = "Collabnix Community"
+            weight = 3
+            url = "https://collabnix.com"
+            pre = "<i class='fas fa-globe'></i>"
           EOL
           
-          mkdir -p content/docs content/labs static
-          cat > content/_index.md << 'EOL'
+          # Create content structure
+          mkdir -p content/en/docs content/en/labs content/en/_index.md
+          
+          # Create homepage
+          cat > content/en/_index.html << 'EOL'
           ---
           title: "Ollama Labs"
+          linkTitle: "Ollama Labs"
           ---
           
-          # Welcome to Ollama Labs
+          {{< blocks/cover title="Welcome to Ollama Labs" image_anchor="top" height="full" color="orange" >}}
+          <div class="mx-auto">
+            <a class="btn btn-lg btn-primary mr-3 mb-4" href="{{< relref "/docs" >}}">
+              Learn More <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+            </a>
+            <a class="btn btn-lg btn-secondary mr-3 mb-4" href="{{< relref "/labs" >}}">
+              Try Labs <i class="fab fa-github ml-2 "></i>
+            </a>
+            <p class="lead mt-5">Your comprehensive resource for running LLMs locally using Ollama</p>
+          </div>
+          {{< /blocks/cover >}}
           
-          Your comprehensive resource for Ollama - the tool that makes it easy to run large language models locally.
+          {{< blocks/section >}}
+          <div class="col-12">
+            <h1 class="text-center">What is Ollama?</h1>
+            <p class="text-center">Ollama is an open-source project that allows you to run large language models (LLMs) locally on your own hardware. It simplifies the process of downloading, installing, and running AI models without needing specialized knowledge or hardware.</p>
+          </div>
+          {{< /blocks/section >}}
           
-          ## What is Ollama?
-          
-          Ollama is an open-source project that allows you to run large language models (LLMs) locally on your own hardware. It simplifies the process of downloading, installing, and running AI models without needing specialized knowledge or hardware.
-          
-          ## Explore Our Resources
-          
-          - **[Documentation](/docs/)**: Comprehensive guides and references
-          - **[Labs](/labs/)**: Hands-on exercises and tutorials
+          {{< blocks/section >}}
+          <div class="col-4">
+            <h2>Documentation</h2>
+            <p>Comprehensive guides on installation, configuration, and usage</p>
+            <a href="{{< relref "/docs" >}}">Read Documentation →</a>
+          </div>
+          <div class="col-4">
+            <h2>Labs</h2>
+            <p>Hands-on exercises to build practical applications</p>
+            <a href="{{< relref "/labs" >}}">Try Labs →</a>
+          </div>
+          <div class="col-4">
+            <h2>Community</h2>
+            <p>Join the Collabnix Community to connect with other users</p>
+            <a href="https://collabnix.com">Visit Community →</a>
+          </div>
+          {{< /blocks/section >}}
           EOL
           
-          cat > content/docs/_index.md << 'EOL'
+          # Create documentation section
+          cat > content/en/docs/_index.md << 'EOL'
           ---
           title: "Documentation"
+          linkTitle: "Documentation"
           weight: 1
+          menu:
+            main:
+              weight: 1
           ---
-          
-          # Ollama Documentation
           
           Welcome to the Ollama documentation. Here you'll find comprehensive guides and documentation to help you start working with Ollama as quickly as possible.
           EOL
           
-          cat > content/docs/getting-started.md << 'EOL'
+          # Create Getting Started page
+          mkdir -p content/en/docs/getting-started
+          cat > content/en/docs/getting-started/_index.md << 'EOL'
           ---
           title: "Getting Started"
+          linkTitle: "Getting Started"
           weight: 1
+          description: >-
+            A guide to help you get started with Ollama
           ---
           
           # Getting Started with Ollama
@@ -134,10 +224,15 @@ jobs:
           This will download the Llama 2 model (if you don't already have it) and start a chat session.
           EOL
           
-          cat > content/docs/models.md << 'EOL'
+          # Create Models page
+          mkdir -p content/en/docs/models
+          cat > content/en/docs/models/_index.md << 'EOL'
           ---
           title: "Models"
+          linkTitle: "Models"
           weight: 2
+          description: >-
+            Information about models available in Ollama
           ---
           
           # Ollama Model Library
@@ -156,50 +251,15 @@ jobs:
           | Phi | 2B | Microsoft's small but capable model | Education, lightweight applications |
           EOL
           
-          cat > content/docs/api.md << 'EOL'
-          ---
-          title: "API Reference"
-          weight: 3
-          ---
-          
-          # Ollama API Reference
-          
-          Ollama provides a comprehensive HTTP API that allows you to integrate LLMs into your applications.
-          
-          ## API Base URL
-          
-          The Ollama API is available at:
-          
-          ```
-          http://localhost:11434/api
-          ```
-          
-          ## Chat Endpoint
-          
-          ### POST /api/chat
-          
-          Start a chat session with a model.
-          
-          #### Request
-          
-          ```json
-          {
-            "model": "llama2",
-            "messages": [
-              {
-                "role": "user",
-                "content": "Hello, how are you?"
-              }
-            ],
-            "stream": true
-          }
-          ```
-          EOL
-          
-          cat > content/labs/_index.md << 'EOL'
+          # Create labs section
+          cat > content/en/labs/_index.md << 'EOL'
           ---
           title: "Labs"
+          linkTitle: "Labs"
           weight: 2
+          menu:
+            main:
+              weight: 2
           ---
           
           # Ollama Labs
@@ -207,10 +267,15 @@ jobs:
           Welcome to Ollama Labs, where you'll find hands-on exercises to help you build practical applications with Ollama.
           EOL
           
-          cat > content/labs/lab1.md << 'EOL'
+          # Create Lab 1
+          mkdir -p content/en/labs/lab1
+          cat > content/en/labs/lab1/_index.md << 'EOL'
           ---
           title: "Lab 1: Running Your First Model"
+          linkTitle: "Lab 1: First Model"
           weight: 1
+          description: >-
+            Learn how to run your first language model with Ollama
           ---
           
           # Lab 1: Running Your First Model with Ollama
@@ -238,10 +303,15 @@ jobs:
           This will download the model if needed and start an interactive chat session.
           EOL
           
-          cat > content/labs/lab2.md << 'EOL'
+          # Create Lab 2
+          mkdir -p content/en/labs/lab2
+          cat > content/en/labs/lab2/_index.md << 'EOL'
           ---
           title: "Lab 2: Python Integration"
+          linkTitle: "Lab 2: Python Integration"
           weight: 2
+          description: >-
+            Learn how to use Ollama from Python applications
           ---
           
           # Lab 2: Integrating Ollama with Python
@@ -284,21 +354,14 @@ jobs:
           ```
           EOL
           
-          # Create a simple logo
-          cat > static/logo.svg << 'EOL'
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 24" width="120" height="24">
-            <text x="0" y="20" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0078d4">Ollama Labs</text>
-          </svg>
-          EOL
+          mkdir -p static/images
           
-          cat > static/favicon.ico << 'EOL'
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-            <circle cx="16" cy="16" r="14" fill="#0078d4" />
-            <text x="16" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">O</text>
-          </svg>
-          EOL
-          
-          echo "Finished setting up basic site"
+          echo "Finished setting up basic site with Docsy theme"
+
+      - name: Install PostCSS for Docsy
+        run: |
+          npm install -D autoprefixer
+          npm install -D postcss-cli
 
       - name: Build site
         run: hugo --minify
