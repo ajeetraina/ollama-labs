@@ -1,0 +1,45 @@
+# Site settings
+title: Ollama Labs
+description: >-
+  Your comprehensive resource for Ollama - the tool that makes it easy to run large language models locally.
+baseurl: "/ollama-labs"
+url: "https://ajeetraina.github.io"
+github_username: ajeetraina
+repository: ajeetraina/ollama-labs
+
+# Build settings
+markdown: kramdown
+remote_theme: pmarsceill/just-the-docs
+
+# Just the Docs settings
+search_enabled: true
+aux_links:
+  "Ollama on GitHub":
+    - "//github.com/ollama/ollama"
+  "Collabnix Community":
+    - "//collabnix.com"
+
+# Navigation
+heading_anchors: true
+nav_sort: case_sensitive
+
+# Enable or disable the site search
+search_enabled: true
+
+# Footer content
+back_to_top: true
+back_to_top_text: "Back to top"
+footer_content: "Copyright &copy; 2025 Collabnix Community. Distributed with an MIT license."
+
+# Color scheme supports "light" (default) and "dark"
+color_scheme: light
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .idea/
+  - .gitignore
+  - .github/
