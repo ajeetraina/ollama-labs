@@ -1,0 +1,79 @@
+<!-- Book Menu -->
+{{ range .Site.Menus.before }}
+  <div class="book-menu-before">
+    {{ template "menu-filetree" dict "section" . "CurrentPage" $ }}
+  </div>
+{{ end }}
+
+{{ with .Site.GetPage .Site.Params.BookSection }}
+  {{ template "book-section-children" (dict "Section" . "CurrentPage" $) }}
+{{ end }}
+
+{{ range .Site.Menus.after }}
+  <div class="book-menu-after">
+    {{ template "menu-filetree" dict "section" . "CurrentPage" $ }}
+  </div>
+{{ end }}
+
+{{ define "menu-filetree" }}
+  {{ $section := .section }}
+  {{ $currentPage := .CurrentPage }}
+
+  {{ with $section }}
+    <ul>
+      {{ range . }}
+        <li>
+          {{ if .Page }}
+            {{ template "book-page-link" (dict "Page" .Page "CurrentPage" $currentPage) }}
+          {{ else if .URL }}
+            <a href="{{ .URL }}" {{ with .Params.target }}target="{{ . }}"{{ end }}>
+              {{ with .Pre }}{{ . | safeHTML }} {{ end }}
+              {{ .Name }}
+              {{ with .Post }}{{ . | safeHTML }}{{ end }}
+            </a>
+          {{ else }}
+            <span>{{ .Name }}</span>
+          {{ end }}
+
+          {{ with .Children }}
+            <div>
+              {{ template "menu-filetree" (dict "section" . "CurrentPage" $currentPage) }}
+            </div>
+          {{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  {{ end }}
+{{ end }}
+
+{{ define "book-page-link" }}
+  {{ $page := .Page }}
+  {{ $currentPage := .CurrentPage }}
+  {{ $active := and (eq $page $currentPage) (ne .Page.Kind "home") }}
+
+  <a href="{{ $page.RelPermalink }}" {{ if $active }}class="active"{{ end }}>
+    {{ partial "docs/title" $page }}
+  </a>
+{{ end }}
+
+{{ define "book-section-children" }}
+  {{ $sections := where .Section.Pages "Kind" "section" }}
+  {{ $pages := where .Section.Pages "Kind" "page" }}
+
+  {{ if or $sections $pages }}
+    <ul>
+      {{ range $sections }}
+        <li>
+          {{ template "book-page-link" (dict "Page" . "CurrentPage" $.CurrentPage) }}
+          {{ template "book-section-children" (dict "Section" . "CurrentPage" $.CurrentPage) }}
+        </li>
+      {{ end }}
+
+      {{ range $pages }}
+        <li>
+          {{ template "book-page-link" (dict "Page" . "CurrentPage" $.CurrentPage) }}
+        </li>
+      {{ end }}
+    </ul>
+  {{ end }}
+{{ end }}
