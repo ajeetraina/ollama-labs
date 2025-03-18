@@ -20,10 +20,15 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build
+      - name: Setup Theme
         run: |
-          git clone https://github.com/alex-shpak/hugo-book themes/hugo-book
-          hugo --minify
+          if [ ! -d "themes/hugo-book" ]; then
+            mkdir -p themes
+            git clone https://github.com/alex-shpak/hugo-book themes/hugo-book
+          fi
+
+      - name: Build
+        run: hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
