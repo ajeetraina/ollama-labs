@@ -3,15 +3,18 @@ name: Deploy Hugo site to GitHub Pages
 on:
   push:
     branches:
-      - main  # Set this to your default branch
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          submodules: false
           fetch-depth: 0
 
       - name: Setup Hugo
@@ -20,32 +23,287 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Clean up previous build artifacts
+      - name: Clean existing files
         run: |
-          rm -rf themes/ layouts/ assets/ public/
-          rm -f config.toml  # Remove old TOML config if it exists
+          find . -maxdepth 1 -not -path './.git' -not -path '.' -not -path './.github' | xargs rm -rf
 
-      - name: Install Geekdoc theme
+      - name: Create basic Hugo site
         run: |
-          mkdir -p themes/hugo-geekdoc
-          curl -L https://github.com/thegeeklab/hugo-geekdoc/releases/latest/download/hugo-geekdoc.tar.gz | tar -xz -C themes/hugo-geekdoc/ --strip-components=1
+          hugo new site . --force
+          git clone https://github.com/thegeeklab/hugo-geekdoc themes/hugo-geekdoc
+          cat > config.toml << 'EOL'
+          baseURL = "https://ajeetraina.github.io/ollama-labs/"
+          languageCode = "en-us"
+          title = "Ollama Labs"
+          theme = "hugo-geekdoc"
+          
+          # Geekdoc required configuration
+          pygmentsUseClasses = true
+          pygmentsCodeFences = true
+          disablePathToLower = true
+          
+          # Required if you want to render tags
+          [taxonomies]
+            tag = "tags"
+          
+          [markup]
+            [markup.goldmark.renderer]
+              unsafe = true
+            [markup.tableOfContents]
+              startLevel = 1
+              endLevel = 9
+          
+          [params]
+            geekdocToC = 3
+            geekdocLogo = "logo.svg"
+            geekdocRepo = "https://github.com/ajeetraina/ollama-labs"
+            geekdocEditPath = "edit/main/content"
+            geekdocSearch = true
+            geekdocBreadcrumb = true
+          EOL
+          
+          mkdir -p content/docs content/labs static
+          cat > content/_index.md << 'EOL'
+          ---
+          title: "Ollama Labs"
+          ---
+          
+          # Welcome to Ollama Labs
+          
+          Your comprehensive resource for Ollama - the tool that makes it easy to run large language models locally.
+          
+          ## What is Ollama?
+          
+          Ollama is an open-source project that allows you to run large language models (LLMs) locally on your own hardware. It simplifies the process of downloading, installing, and running AI models without needing specialized knowledge or hardware.
+          
+          ## Explore Our Resources
+          
+          - **[Documentation](/docs/)**: Comprehensive guides and references
+          - **[Labs](/labs/)**: Hands-on exercises and tutorials
+          EOL
+          
+          cat > content/docs/_index.md << 'EOL'
+          ---
+          title: "Documentation"
+          weight: 1
+          ---
+          
+          # Ollama Documentation
+          
+          Welcome to the Ollama documentation. Here you'll find comprehensive guides and documentation to help you start working with Ollama as quickly as possible.
+          EOL
+          
+          cat > content/docs/getting-started.md << 'EOL'
+          ---
+          title: "Getting Started"
+          weight: 1
+          ---
+          
+          # Getting Started with Ollama
+          
+          This guide will help you install Ollama and run your first language model locally.
+          
+          ## Installation
+          
+          Ollama is available for macOS, Linux, and Windows.
+          
+          ### macOS
+          
+          ```bash
+          brew install ollama
+          ```
+          
+          ### Linux
+          
+          ```bash
+          curl -fsSL https://ollama.ai/install.sh | sh
+          ```
+          
+          ### Windows
+          
+          Windows support is available through WSL (Windows Subsystem for Linux).
+          
+          ## Running Your First Model
+          
+          Once you have Ollama installed, you can run your first model with a simple command:
+          
+          ```bash
+          ollama run llama2
+          ```
+          
+          This will download the Llama 2 model (if you don't already have it) and start a chat session.
+          EOL
+          
+          cat > content/docs/models.md << 'EOL'
+          ---
+          title: "Models"
+          weight: 2
+          ---
+          
+          # Ollama Model Library
+          
+          Ollama supports a wide variety of open-source large language models (LLMs). This section provides information about the most popular models available for use with Ollama.
+          
+          ## Available Models
+          
+          Here's an overview of the main models available for Ollama:
+          
+          | Model | Size | Strengths | Ideal Use Cases |
+          |-------|------|-----------|----------------|
+          | Llama 2 | 7B to 70B | Well-balanced performance | General purpose, chat, coding |
+          | Mistral | 7B | Strong at reasoning | Creative writing, complex reasoning |
+          | Gemma | 2B, 7B | Google's lightweight model | Simple tasks, embedded systems |
+          | Phi | 2B | Microsoft's small but capable model | Education, lightweight applications |
+          EOL
+          
+          cat > content/docs/api.md << 'EOL'
+          ---
+          title: "API Reference"
+          weight: 3
+          ---
+          
+          # Ollama API Reference
+          
+          Ollama provides a comprehensive HTTP API that allows you to integrate LLMs into your applications.
+          
+          ## API Base URL
+          
+          The Ollama API is available at:
+          
+          ```
+          http://localhost:11434/api
+          ```
+          
+          ## Chat Endpoint
+          
+          ### POST /api/chat
+          
+          Start a chat session with a model.
+          
+          #### Request
+          
+          ```json
+          {
+            "model": "llama2",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Hello, how are you?"
+              }
+            ],
+            "stream": true
+          }
+          ```
+          EOL
+          
+          cat > content/labs/_index.md << 'EOL'
+          ---
+          title: "Labs"
+          weight: 2
+          ---
+          
+          # Ollama Labs
+          
+          Welcome to Ollama Labs, where you'll find hands-on exercises to help you build practical applications with Ollama.
+          EOL
+          
+          cat > content/labs/lab1.md << 'EOL'
+          ---
+          title: "Lab 1: Running Your First Model"
+          weight: 1
+          ---
+          
+          # Lab 1: Running Your First Model with Ollama
+          
+          In this lab, you'll learn how to run your first language model using Ollama and interact with it through the command line.
+          
+          ## Prerequisites
+          
+          - Ollama installed on your system
+          - Terminal or command prompt access
+          - At least 5GB of free disk space
+          
+          ## Step 1: Verify Ollama Installation
+          
+          ```bash
+          ollama --version
+          ```
+          
+          ## Step 2: Run Your First Model
+          
+          ```bash
+          ollama run llama2
+          ```
+          
+          This will download the model if needed and start an interactive chat session.
+          EOL
+          
+          cat > content/labs/lab2.md << 'EOL'
+          ---
+          title: "Lab 2: Python Integration"
+          weight: 2
+          ---
+          
+          # Lab 2: Integrating Ollama with Python
+          
+          In this lab, you'll learn how to use Ollama from Python applications.
+          
+          ## Prerequisites
+          
+          - Ollama installed and working
+          - Python 3.8 or newer
+          - Basic Python knowledge
+          
+          ## Example Python Code
+          
+          ```python
+          import requests
+          import json
+          
+          def generate_response(prompt, model="llama2"):
+              url = "http://localhost:11434/api/generate"
+              
+              data = {
+                  "model": model,
+                  "prompt": prompt
+              }
+              
+              response = requests.post(url, json=data)
+              if response.status_code == 200:
+                  response_text = ""
+                  for line in response.text.strip().split('\n'):
+                      try:
+                          response_json = json.loads(line)
+                          if 'response' in response_json:
+                              response_text += response_json['response']
+                      except json.JSONDecodeError:
+                          pass
+                  return response_text
+              else:
+                  return f"Error: {response.status_code} - {response.text}"
+          ```
+          EOL
+          
+          # Create a simple logo
+          cat > static/logo.svg << 'EOL'
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 24" width="120" height="24">
+            <text x="0" y="20" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0078d4">Ollama Labs</text>
+          </svg>
+          EOL
+          
+          cat > static/favicon.ico << 'EOL'
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+            <circle cx="16" cy="16" r="14" fill="#0078d4" />
+            <text x="16" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">O</text>
+          </svg>
+          EOL
+          
+          echo "Finished setting up basic site"
 
-      - name: List directories
-        run: |
-          echo "Current directory contents:"
-          ls -la
-          echo "\nThemes directory:"
-          ls -la themes/
-          echo "\nGeekdoc theme directory:"
-          ls -la themes/hugo-geekdoc/
-          echo "\nConfig file:"
-          cat config.yaml
+      - name: Build site
+        run: hugo --minify
 
-      - name: Build
-        run: |
-          hugo --minify --themesDir ./themes --theme hugo-geekdoc
-
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
