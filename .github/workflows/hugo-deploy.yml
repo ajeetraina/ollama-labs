@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: false  # Don't fetch submodules yet
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: false
+          fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -22,29 +22,37 @@ jobs:
 
       - name: Clean up previous build artifacts
         run: |
-          rm -rf themes/ layouts/ public/
+          rm -rf themes/ layouts/ assets/ public/ content/ static/ config.toml
 
       - name: Clone Hugo Book Theme
         run: |
           mkdir -p themes/hugo-book
           git clone --depth 1 https://github.com/alex-shpak/hugo-book.git themes/hugo-book
-          echo "Theme directory contents:"
-          find themes/hugo-book -type f | sort
 
-      - name: Create example site
+      - name: Copy example site
         run: |
-          mkdir -p exampleSite/content
-          cp -r themes/hugo-book/exampleSite/* exampleSite/
-          find exampleSite -type f | sort
+          cp -r themes/hugo-book/exampleSite/* .
+          ls -la
+
+      - name: Modify config
+        run: |
+          sed -i 's|baseURL = "http://example.org/"|baseURL = "https://ajeetraina.github.io/ollama-labs/"|g' config.toml
+          sed -i 's|title = "Hugo Book"|title = "Ollama Labs"|g' config.toml
+          cat config.toml
+
+      - name: Copy our content
+        run: |
+          mkdir -p content/docs/ollama
+          find . -type f -name "*.md" -path "./content/docs/**" -exec cp {} content/docs/ollama/ \;
 
       - name: Build
         run: |
-          hugo --minify --debug --verboseLog --verbose
+          hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: gh-pages  # The branch the action should deploy to
-          cname: ollama.collabnix.com  # Add your custom domain
+          publish_branch: gh-pages
+          cname: ollama.collabnix.com
