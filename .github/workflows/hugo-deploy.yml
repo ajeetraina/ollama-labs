@@ -22,46 +22,12 @@ jobs:
 
       - name: Clean up previous build artifacts
         run: |
-          rm -rf themes/ layouts/ assets/ public/ config.toml
+          rm -rf themes/ layouts/ assets/ public/
 
-      - name: Clone Hugo Book Theme
+      - name: Install Geekdoc theme
         run: |
-          mkdir -p themes/hugo-book
-          git clone --depth 1 https://github.com/alex-shpak/hugo-book.git themes/hugo-book
-
-      - name: Create config.toml
-        run: |
-          cat > config.toml << 'EOL'
-          baseURL = "https://ajeetraina.github.io/ollama-labs/"
-          languageCode = "en-us"
-          title = "Ollama Labs"
-          theme = "hugo-book"
-          
-          # Book Theme options
-          [params]
-            # Sets color theme: light, dark or auto.
-            BookTheme = "light"
-          
-            # Controls table of contents visibility
-            BookToC = true
-          
-            # Specify section of content to render as menu
-            BookSection = "docs"
-          
-            # Set source repository location.
-            BookRepo = "https://github.com/ajeetraina/ollama-labs"
-          
-            # Enable 'Edit this page' links
-            BookEditPath = "edit/main"
-          
-            # Configure the date format
-            BookDateFormat = "Jan 2, 2006"
-          
-            # Enable search
-            BookSearch = true
-          EOL
-          
-          cat config.toml
+          mkdir -p themes/hugo-geekdoc
+          curl -L https://github.com/thegeeklab/hugo-geekdoc/releases/latest/download/hugo-geekdoc.tar.gz | tar -xz -C themes/hugo-geekdoc/ --strip-components=1
 
       - name: Build
         run: |
