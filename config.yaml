@@ -1,0 +1,56 @@
+baseURL: 'https://ajeetraina.github.io/ollama-labs/'
+languageCode: 'en-us'
+title: 'Ollama Labs'
+theme: 'hugo-geekdoc'
+
+# Geekdoc required configuration
+pygmentsUseClasses: true
+pygmentsCodeFences: true
+disablePathToLower: true
+
+# Required if you want to render tags
+taxonomies:
+  tag: tags
+
+# Needed for mermaid shortcodes
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 1
+    endLevel: 9
+
+params:
+  # (Optional, default 6) Set how many table of contents levels to be showed on page.
+  geekdocToC: 3
+  
+  # (Optional, default static/brand.svg) Set the path to a logo for the Geekdoc
+  # relative to your 'static/' folder.
+  geekdocLogo: logo.svg
+  
+  # (Optional, default false) Enables search function with flexsearch.
+  # Index is built on the fly and might slow down your website.
+  geekdocSearch: true
+  
+  # (Optional, default false) Display an "Edit this page" link. Requires 'GeekdocRepo' param.
+  geekdocEditPath: edit/main
+  
+  # (Optional, default true) Show a breadcrumb navigation bar at the top of each docs page.
+  # You can also specify this parameter per page in front matter.
+  geekdocBreadcrumb: true
+  
+  # (Optional, default true) Show a breadcrumb navigation bar at the top of each docs page.
+  # You can also specify this parameter per page in front matter.
+  geekdocBreadcrumb: true
+  
+  # (Optional, default none) Set source repository location. Used for 'Edit this page' links.
+  # You can also specify this parameter per page in front matter.
+  geekdocRepo: 'https://github.com/ajeetraina/ollama-labs'
+  
+  # (Optional, default none) Enable "Edit this page" links. Requires 'GeekdocRepo' param
+  # and the path must point to the main branch or repository root.
+  geekdocEditPath: 'edit/main'
+  
+  # (Optional, default true) Enables the use of emoji's
+  geekdocEmoji: true
