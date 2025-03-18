@@ -20,17 +20,19 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
+      - name: Clean up previous build artifacts
+        run: |
+          rm -rf themes/ layouts/ public/
+
       - name: Clone Hugo Book Theme
         run: |
-          rm -rf themes/
           mkdir -p themes/hugo-book
           git clone --depth 1 https://github.com/alex-shpak/hugo-book.git themes/hugo-book
+          echo "Theme directory contents:"
           ls -la themes/hugo-book
 
       - name: Build
         run: |
-          echo "Theme directory contents:"
-          ls -la themes/hugo-book
           hugo --minify
 
       - name: Deploy
