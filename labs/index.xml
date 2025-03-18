@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Labs on My New Hugo Site</title><link>https://example.org/labs/</link><description>Recent content in Labs on My New Hugo Site</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://example.org/labs/index.xml" rel="self" type="application/rss+xml"/><item><title>Lab 1: Running Your First Model</title><link>https://example.org/labs/lab1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://example.org/labs/lab1/</guid><description>&lt;h1 id="lab-1-running-your-first-model-with-ollama">Lab 1: Running Your First Model with Ollama&lt;/h1>
+&lt;p>In this lab, you&amp;rsquo;ll learn how to run your first language model using Ollama and interact with it through the command line.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Ollama installed on your system&lt;/li>
+&lt;li>Terminal or command prompt access&lt;/li>
+&lt;li>At least 5GB of free disk space&lt;/li>
+&lt;/ul>
+&lt;h2 id="step-1-verify-ollama-installation">Step 1: Verify Ollama Installation&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ollama --version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-2-run-your-first-model">Step 2: Run Your First Model&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ollama run llama2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will download the model if needed and start an interactive chat session.&lt;/p></description></item><item><title>Lab 2: Python Integration</title><link>https://example.org/labs/lab2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://example.org/labs/lab2/</guid><description>&lt;h1 id="lab-2-integrating-ollama-with-python">Lab 2: Integrating Ollama with Python&lt;/h1>
+&lt;p>In this lab, you&amp;rsquo;ll learn how to use Ollama from Python applications.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Ollama installed and working&lt;/li>
+&lt;li>Python 3.8 or newer&lt;/li>
+&lt;li>Basic Python knowledge&lt;/li>
+&lt;/ul>
+&lt;h2 id="example-python-code">Example Python Code&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">generate_response&lt;/span>(prompt, model&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;llama2&amp;#34;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:11434/api/generate&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;model&amp;#34;&lt;/span>: model,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;prompt&amp;#34;&lt;/span>: prompt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(url, json&lt;span style="color:#f92672">=&lt;/span>data)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>status_code &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> response_text &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> line &lt;span style="color:#f92672">in&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>text&lt;span style="color:#f92672">.&lt;/span>strip()&lt;span style="color:#f92672">.&lt;/span>split(&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> response_json &lt;span style="color:#f92672">=&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>loads(line)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#e6db74">&amp;#39;response&amp;#39;&lt;/span> &lt;span style="color:#f92672">in&lt;/span> response_json:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> response_text &lt;span style="color:#f92672">+=&lt;/span> response_json[&lt;span style="color:#e6db74">&amp;#39;response&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>JSONDecodeError:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> response_text
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Error: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>response&lt;span style="color:#f92672">.&lt;/span>status_code&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> - &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>response&lt;span style="color:#f92672">.&lt;/span>text&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

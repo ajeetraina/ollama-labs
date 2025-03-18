@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Documentation on My New Hugo Site</title><link>https://example.org/docs/</link><description>Recent content in Documentation on My New Hugo Site</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://example.org/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started</title><link>https://example.org/docs/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://example.org/docs/getting-started/</guid><description>&lt;h1 id="getting-started-with-ollama">Getting Started with Ollama&lt;/h1>
+&lt;p>This guide will help you install Ollama and run your first language model locally.&lt;/p>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;p>Ollama is available for macOS, Linux, and Windows.&lt;/p>
+&lt;h3 id="macos">macOS&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>brew install ollama
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="linux">Linux&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>curl -fsSL https://ollama.ai/install.sh | sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="windows">Windows&lt;/h3>
+&lt;p>Windows support is available through WSL (Windows Subsystem for Linux).&lt;/p>
+&lt;h2 id="running-your-first-model">Running Your First Model&lt;/h2>
+&lt;p>Once you have Ollama installed, you can run your first model with a simple command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ollama run llama2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will download the Llama 2 model (if you don&amp;rsquo;t already have it) and start a chat session.&lt;/p></description></item><item><title>Models</title><link>https://example.org/docs/models/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://example.org/docs/models/</guid><description>&lt;h1 id="ollama-model-library">Ollama Model Library&lt;/h1>
+&lt;p>Ollama supports a wide variety of open-source large language models (LLMs). This section provides information about the most popular models available for use with Ollama.&lt;/p>
+&lt;h2 id="available-models">Available Models&lt;/h2>
+&lt;p>Here&amp;rsquo;s an overview of the main models available for Ollama:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Model&lt;/th>
+ &lt;th>Size&lt;/th>
+ &lt;th>Strengths&lt;/th>
+ &lt;th>Ideal Use Cases&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Llama 2&lt;/td>
+ &lt;td>7B to 70B&lt;/td>
+ &lt;td>Well-balanced performance&lt;/td>
+ &lt;td>General purpose, chat, coding&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Mistral&lt;/td>
+ &lt;td>7B&lt;/td>
+ &lt;td>Strong at reasoning&lt;/td>
+ &lt;td>Creative writing, complex reasoning&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Gemma&lt;/td>
+ &lt;td>2B, 7B&lt;/td>
+ &lt;td>Google&amp;rsquo;s lightweight model&lt;/td>
+ &lt;td>Simple tasks, embedded systems&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Phi&lt;/td>
+ &lt;td>2B&lt;/td>
+ &lt;td>Microsoft&amp;rsquo;s small but capable model&lt;/td>
+ &lt;td>Education, lightweight applications&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>API Reference</title><link>https://example.org/docs/api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://example.org/docs/api/</guid><description>&lt;h1 id="ollama-api-reference">Ollama API Reference&lt;/h1>
+&lt;p>Ollama provides a comprehensive HTTP API that allows you to integrate LLMs into your applications.&lt;/p>
+&lt;h2 id="api-base-url">API Base URL&lt;/h2>
+&lt;p>The Ollama API is available at:&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost:11434/api
+&lt;/code>&lt;/pre>&lt;h2 id="chat-endpoint">Chat Endpoint&lt;/h2>
+&lt;h3 id="post-apichat">POST /api/chat&lt;/h3>
+&lt;p>Start a chat session with a model.&lt;/p>
+&lt;h4 id="request">Request&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;model&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;llama2&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;messages&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;role&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;user&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;content&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Hello, how are you?&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;stream&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
