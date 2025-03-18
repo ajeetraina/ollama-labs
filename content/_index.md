@@ -1,7 +1,6 @@
 ---
 title: "Ollama Labs"
-date: 2025-03-18
-draft: false
+type: docs
 ---
 
 # Welcome to Ollama Labs
@@ -12,14 +11,13 @@ Your comprehensive resource for everything related to Ollama - the tool that mak
 
 Ollama is an open-source project that allows you to run large language models (LLMs) locally on your own hardware. It simplifies the process of downloading, installing, and running AI models without needing specialized knowledge or hardware.
 
-## Why Ollama Labs?
+## What You'll Find Here
 
-At Ollama Labs, we provide:
-
-- **Comprehensive Tutorials**: Learn how to use Ollama from basics to advanced techniques
-- **Practical Labs**: Hands-on exercises to build real-world applications
-- **Model Library**: Information about supported models and their performance
-- **Latest News**: Stay up-to-date with the latest Ollama developments
+- **[Documentation](/docs/)**: Comprehensive guides on installation, configuration, and usage
+- **[Tutorials](/docs/tutorials/)**: Step-by-step instructions for common tasks
+- **[Labs](/labs/)**: Hands-on exercises to build practical applications
+- **[Model Library](/docs/models/)**: Information about supported models and their performance
+- **[API Reference](/docs/api/)**: Details on integrating Ollama with your applications
 
 ## Getting Started
 
@@ -34,4 +32,4 @@ New to Ollama? Check out our [Getting Started Guide](/docs/getting-started/) to 
 
 ## Join the Community
 
-Ollama has a growing community of developers and enthusiasts. Join us on [GitHub](https://github.com/ollama/ollama) or our [Discord server](https://discord.gg/ollama) to connect with other users and contributors.
+Ollama has a growing community of developers and enthusiasts. Join us on [GitHub](https://github.com/ollama/ollama) or the [Collabnix Community](https://collabnix.com) to connect with other users and contributors.
