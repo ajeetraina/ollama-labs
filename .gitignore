@@ -1,0 +1,17 @@
+# Hugo default output directory
+/public/
+/resources/_gen/
+
+# Hugo cache
+/.hugo_build.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Node modules if using any JS tools
+node_modules/
+
+# Temporary files
+*.log
+*.tmp
