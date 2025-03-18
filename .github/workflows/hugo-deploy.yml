@@ -29,11 +29,17 @@ jobs:
           mkdir -p themes/hugo-book
           git clone --depth 1 https://github.com/alex-shpak/hugo-book.git themes/hugo-book
           echo "Theme directory contents:"
-          ls -la themes/hugo-book
+          find themes/hugo-book -type f | sort
+
+      - name: Create example site
+        run: |
+          mkdir -p exampleSite/content
+          cp -r themes/hugo-book/exampleSite/* exampleSite/
+          find exampleSite -type f | sort
 
       - name: Build
         run: |
-          hugo --minify
+          hugo --minify --debug --verboseLog --verbose
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
