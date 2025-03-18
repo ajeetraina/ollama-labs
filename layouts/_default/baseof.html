@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+
+<head>
+  {{ partial "docs/html-head" . }}
+  {{ partial "docs/inject/head" . }}
+  <link rel="stylesheet" href="{{ "/css/custom.css" | relURL }}">  
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+  <meta name="keywords" content="ollama, llm, large language models, ai, machine learning, local ai, self-hosted ai">
+</head>
+
+<body dir="{{ .Site.Language.LanguageDirection }}">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        {{ template "menu" . }}
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        {{ template "header" . }}
+      </header>
+
+      {{ partial "docs/inject/content-before" . }}
+      {{ template "main" . }}
+      {{ partial "docs/inject/content-after" . }}
+
+      <footer class="book-footer">
+        {{ template "footer" . }}
+      </footer>
+
+      {{ template "comments" . }}
+
+      <label for="menu-control" class="book-menu-overlay"></label>
+    </div>
+
+    {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        {{ template "toc" . }}
+      </div>
+    </aside>
+    {{ end }}
+  </main>
+
+  {{ partial "docs/inject/footer" . }}
+  <div class="site-footer">
+    <div class="container">
+      <p>&copy; {{ now.Format "2006" }} Collabnix Community. All rights reserved.</p>
+      <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> and <a href="https://github.com/ollama/ollama" target="_blank">Ollama</a>.</p>
+    </div>
+  </div>
+</body>
+
+</html>
