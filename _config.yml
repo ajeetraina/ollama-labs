@@ -2,14 +2,16 @@
 title: Ollama Labs
 description: >-
   Your comprehensive resource for Ollama - the tool that makes it easy to run large language models locally.
-baseurl: "/ollama-labs"
-url: "https://ajeetraina.github.io"
+baseurl: "/ollama-labs" # the subpath of your site, e.g. /blog
+url: "https://ajeetraina.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: ajeetraina
 repository: ajeetraina/ollama-labs
 
 # Build settings
 markdown: kramdown
-remote_theme: pmarsceill/just-the-docs
+theme: "just-the-docs"
+# Remote theme was causing issues - using the gem theme directly
+# remote_theme: pmarsceill/just-the-docs
 
 # Just the Docs settings
 search_enabled: true
@@ -33,6 +35,10 @@ footer_content: "Copyright &copy; 2025 Collabnix Community. Distributed with an 
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light
+
+# Custom CSS files
+# Uncomment to use your own custom CSS
+# styles_folder: "/assets/css"
 
 # Exclude from processing
 exclude:
