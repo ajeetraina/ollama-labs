@@ -1,0 +1,48 @@
+---
+# yamllint disable rule:line-length rule:truthy
+
+nav:
+  - name: Documentation
+    ref: /docs
+    icon: gdoc_bookmark
+    sub:
+      - name: Getting Started
+        ref: /docs/getting-started
+        sub:
+          - name: Installation
+            ref: /docs/getting-started/installation
+          - name: macOS
+            ref: /docs/getting-started/installation/macos
+          - name: Linux
+            ref: /docs/getting-started/installation/linux
+          - name: Windows
+            ref: /docs/getting-started/installation/windows
+      - name: Models
+        ref: /docs/models
+      - name: API Reference
+        ref: /docs/api
+      - name: Advanced Usage
+        ref: /docs/advanced
+        sub:
+          - name: GPU Acceleration
+            ref: /docs/advanced/gpu-acceleration
+      - name: Troubleshooting
+        ref: /docs/troubleshooting
+  - name: Labs
+    ref: /labs
+    icon: gdoc_code
+    sub:
+      - name: Lab 1: Running First Model
+        ref: /labs/lab1-running-first-model
+      - name: Lab 3: Python Integration
+        ref: /labs/lab3-python-integration
+      - name: Lab 4: Chat Interface
+        ref: /labs/lab4-chat-interface
+  - name: GitHub
+    ref: https://github.com/ajeetraina/ollama-labs
+    external: true
+    icon: gdoc_github
+  - name: Collabnix Community
+    ref: https://collabnix.com
+    external: true
+    icon: gdoc_link

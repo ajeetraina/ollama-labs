@@ -1,0 +1,15 @@
+---
+# yamllint disable rule:line-length rule:truthy
+
+more:
+  - name: News
+    ref: news
+    icon: gdoc_rss
+  - name: Releases
+    ref: https://github.com/ajeetraina/ollama-labs/releases
+    external: true
+    icon: gdoc_download
+  - name: "View Source"
+    ref: https://github.com/ajeetraina/ollama-labs
+    external: true
+    icon: gdoc_github
