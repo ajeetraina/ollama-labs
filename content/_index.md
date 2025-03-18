@@ -1,7 +1,9 @@
 ---
 title: "Ollama Labs"
-type: docs
-bookToc: false
+description: "Your comprehensive resource for everything Ollama"
+geekdocNav: true
+geekdocAlign: center
+geekdocAnchor: true
 ---
 
 # Welcome to Ollama Labs
@@ -14,11 +16,11 @@ Ollama is an open-source project that allows you to run large language models (L
 
 ## What You'll Find Here
 
-- **[Documentation](/docs/)**: Comprehensive guides on installation, configuration, and usage
-- **[Tutorials](/docs/tutorials/)**: Step-by-step instructions for common tasks
-- **[Labs](/labs/)**: Hands-on exercises to build practical applications
-- **[Model Library](/docs/models/)**: Information about supported models and their performance
-- **[API Reference](/docs/api/)**: Details on integrating Ollama with your applications
+- **Documentation**: Comprehensive guides on installation, configuration, and usage
+- **Tutorials**: Step-by-step instructions for common tasks
+- **Labs**: Hands-on exercises to build practical applications
+- **Model Library**: Information about supported models and their performance
+- **API Reference**: Details on integrating Ollama with your applications
 
 ## Getting Started
 
