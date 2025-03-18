@@ -22,28 +22,46 @@ jobs:
 
       - name: Clean up previous build artifacts
         run: |
-          rm -rf themes/ layouts/ assets/ public/ content/ static/ config.toml
+          rm -rf themes/ layouts/ assets/ public/ config.toml
 
       - name: Clone Hugo Book Theme
         run: |
           mkdir -p themes/hugo-book
           git clone --depth 1 https://github.com/alex-shpak/hugo-book.git themes/hugo-book
 
-      - name: Copy example site
+      - name: Create config.toml
         run: |
-          cp -r themes/hugo-book/exampleSite/* .
-          ls -la
-
-      - name: Modify config
-        run: |
-          sed -i 's|baseURL = "http://example.org/"|baseURL = "https://ajeetraina.github.io/ollama-labs/"|g' config.toml
-          sed -i 's|title = "Hugo Book"|title = "Ollama Labs"|g' config.toml
+          cat > config.toml << 'EOL'
+          baseURL = "https://ajeetraina.github.io/ollama-labs/"
+          languageCode = "en-us"
+          title = "Ollama Labs"
+          theme = "hugo-book"
+          
+          # Book Theme options
+          [params]
+            # Sets color theme: light, dark or auto.
+            BookTheme = "light"
+          
+            # Controls table of contents visibility
+            BookToC = true
+          
+            # Specify section of content to render as menu
+            BookSection = "docs"
+          
+            # Set source repository location.
+            BookRepo = "https://github.com/ajeetraina/ollama-labs"
+          
+            # Enable 'Edit this page' links
+            BookEditPath = "edit/main"
+          
+            # Configure the date format
+            BookDateFormat = "Jan 2, 2006"
+          
+            # Enable search
+            BookSearch = true
+          EOL
+          
           cat config.toml
-
-      - name: Copy our content
-        run: |
-          mkdir -p content/docs/ollama
-          find . -type f -name "*.md" -path "./content/docs/**" -exec cp {} content/docs/ollama/ \;
 
       - name: Build
         run: |
