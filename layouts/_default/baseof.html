@@ -17,6 +17,7 @@
     <aside class="book-menu">
       <div class="book-menu-content">
         {{ template "menu" . }}
+        {{ partial "docs/inject/menu-after" . }}
       </div>
     </aside>
 
@@ -41,7 +42,8 @@
     {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
     <aside class="book-toc">
       <div class="book-toc-content">
-        {{ template "toc" . }}
+        {{ partial "docs/toc" . }}
+        {{ partial "docs/inject/toc-after" . }}
       </div>
     </aside>
     {{ end }}
