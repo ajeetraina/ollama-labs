@@ -16,7 +16,7 @@ theme = 'hugo-book'
 
   # Specify section of content to render as menu
   # You can also set value to '*' to render all sections to menu
-  BookSection = '*'
+  BookSection = 'docs'
 
   # Set source repository location.
   BookRepo = 'https://github.com/ajeetraina/ollama-labs'
@@ -29,12 +29,26 @@ theme = 'hugo-book'
 
   # Enable search
   BookSearch = true
-  
-  # Enable menu directory
-  BookMenuBundle = '/menu'
 
+# Show left sidebar menu for all sections
+# Adjust Book Section so it displays in the menu
 [menu]
+  # [[menu.before]]
+  #  name = "Home"
+  #  url = "/"
+  #  weight = 1
+
+  [[menu.before]]
+    name = "Docs"
+    url = "/docs/"
+    weight = 10
+
+  [[menu.before]]
+    name = "Labs"
+    url = "/labs/"
+    weight = 20
+    
   [[menu.after]]
     name = "Collabnix Community"
     url = "https://collabnix.com"
-    weight = 10
+    weight = 100
