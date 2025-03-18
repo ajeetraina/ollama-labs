@@ -1,6 +1,9 @@
 ---
 title: "Getting Started"
 weight: 1
+bookFlatSection: false
+bookToc: true
+bookHidden: false
 ---
 
 # Getting Started with Ollama
