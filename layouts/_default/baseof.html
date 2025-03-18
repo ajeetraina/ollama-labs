@@ -16,25 +16,27 @@
   <main class="container flex">
     <aside class="book-menu">
       <div class="book-menu-content">
-        {{ template "menu" . }}
+        {{ partial "docs/menu" . }}
         {{ partial "docs/inject/menu-after" . }}
       </div>
     </aside>
 
     <div class="book-page">
       <header class="book-header">
-        {{ template "header" . }}
+        {{ partial "docs/header" . }}
       </header>
 
       {{ partial "docs/inject/content-before" . }}
-      {{ template "main" . }}
+      
+      <article class="markdown">
+        {{- .Content -}}
+      </article>
+      
       {{ partial "docs/inject/content-after" . }}
 
       <footer class="book-footer">
-        {{ template "footer" . }}
+        {{ partial "docs/footer" . }}
       </footer>
-
-      {{ template "comments" . }}
 
       <label for="menu-control" class="book-menu-overlay"></label>
     </div>
