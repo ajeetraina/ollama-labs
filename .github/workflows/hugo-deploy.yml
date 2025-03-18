@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
+          submodules: false  # Don't fetch submodules yet
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
@@ -20,15 +20,18 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Setup Theme
+      - name: Clone Hugo Book Theme
         run: |
-          if [ ! -d "themes/hugo-book" ]; then
-            mkdir -p themes
-            git clone https://github.com/alex-shpak/hugo-book themes/hugo-book
-          fi
+          rm -rf themes/
+          mkdir -p themes/hugo-book
+          git clone --depth 1 https://github.com/alex-shpak/hugo-book.git themes/hugo-book
+          ls -la themes/hugo-book
 
       - name: Build
-        run: hugo --minify
+        run: |
+          echo "Theme directory contents:"
+          ls -la themes/hugo-book
+          hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
