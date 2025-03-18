@@ -1,6 +1,7 @@
 ---
 title: "Ollama Labs"
 type: docs
+bookToc: false
 ---
 
 # Welcome to Ollama Labs
