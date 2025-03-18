@@ -15,7 +15,8 @@ theme = 'hugo-book'
   BookLogo = 'logo.svg'
 
   # Specify section of content to render as menu
-  BookSection = 'docs'
+  # You can also set value to '*' to render all sections to menu
+  BookSection = '*'
 
   # Set source repository location.
   BookRepo = 'https://github.com/ajeetraina/ollama-labs'
@@ -28,6 +29,9 @@ theme = 'hugo-book'
 
   # Enable search
   BookSearch = true
+  
+  # Enable menu directory
+  BookMenuBundle = '/menu'
 
 [menu]
   [[menu.after]]
