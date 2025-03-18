@@ -15,7 +15,6 @@ theme = 'hugo-book'
   BookLogo = 'logo.svg'
 
   # Specify section of content to render as menu
-  # You can also set value to '*' to render all sections to menu
   BookSection = 'docs'
 
   # Set source repository location.
@@ -29,26 +28,3 @@ theme = 'hugo-book'
 
   # Enable search
   BookSearch = true
-
-# Show left sidebar menu for all sections
-# Adjust Book Section so it displays in the menu
-[menu]
-  # [[menu.before]]
-  #  name = "Home"
-  #  url = "/"
-  #  weight = 1
-
-  [[menu.before]]
-    name = "Docs"
-    url = "/docs/"
-    weight = 10
-
-  [[menu.before]]
-    name = "Labs"
-    url = "/labs/"
-    weight = 20
-    
-  [[menu.after]]
-    name = "Collabnix Community"
-    url = "https://collabnix.com"
-    weight = 100
