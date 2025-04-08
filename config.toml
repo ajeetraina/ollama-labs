@@ -1,4 +1,4 @@
-baseURL = 'https://ajeetraina.github.io/ollama-labs/'
+baseURL = 'https://ollama.collabnix.com/'
 languageCode = 'en-us'
 title = 'Ollama Labs'
 theme = 'hugo-book'
@@ -28,3 +28,6 @@ theme = 'hugo-book'
 
   # Enable search
   BookSearch = true
+  
+  # Site description
+  description = "Your comprehensive resource for Ollama - the tool that makes it easy to run large language models locally."
