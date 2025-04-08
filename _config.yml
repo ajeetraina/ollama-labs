@@ -1,44 +1,91 @@
 # Site settings
 title: Ollama Labs
+tagline: Run Large Language Models Locally
 description: >-
   Your comprehensive resource for Ollama - the tool that makes it easy to run large language models locally.
-baseurl: "/ollama-labs" # the subpath of your site, e.g. /blog
-url: "https://ajeetraina.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # Empty for user site, use "/ollama-labs" for project site if needed
+url: "https://ollama.collabnix.com" # Use your custom domain
+logo: "/assets/images/ollama-labs-logo.png"
+favicon_ico: "/assets/images/favicon.ico"
+
+# Social media
+twitter:
+  username: collabnix
 github_username: ajeetraina
 repository: ajeetraina/ollama-labs
 
 # Build settings
 markdown: kramdown
-theme: "just-the-docs"
-# Remote theme was causing issues - using the gem theme directly
-# remote_theme: pmarsceill/just-the-docs
+highlighter: rouge
+permalink: /:categories/:title/
 
-# Just the Docs settings
-search_enabled: true
-aux_links:
-  "Ollama on GitHub":
-    - "//github.com/ollama/ollama"
-  "Collabnix Community":
-    - "//collabnix.com"
+# Theme settings
+theme: jekyll-theme-chirpy # Using Chirpy theme for modern documentation
+remote_theme: cotes2020/jekyll-theme-chirpy
 
-# Navigation
-heading_anchors: true
-nav_sort: case_sensitive
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-redirect-from
 
-# Enable or disable the site search
-search_enabled: true
+# Chirpy theme settings
+paginate: 10
+paginate_path: /blog/page:num/
 
-# Footer content
-back_to_top: true
-back_to_top_text: "Back to top"
-footer_content: "Copyright &copy; 2025 Collabnix Community. Distributed with an MIT license."
+# Dark/Light mode
+theme_mode: light
 
-# Color scheme supports "light" (default) and "dark"
-color_scheme: light
+# Comments system (optional - remove if not needed)
+comments:
+  active: false
 
-# Custom CSS files
-# Uncomment to use your own custom CSS
-# styles_folder: "/assets/css"
+# Analytics (optional - add your Google Analytics ID)
+# google_analytics: UA-XXXXXXXXX-X
+
+# TOC settings
+toc:
+  enabled: true
+  min_level: 1
+  max_level: 3
+
+# Collections for different content types
+collections:
+  docs:
+    output: true
+    sort_by: order
+  tutorials:
+    output: true
+    sort_by: order
+  labs:
+    output: true
+    sort_by: order
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: page
+      comments: false
+  - scope:
+      path: "_posts"
+    values:
+      layout: post
+      comments: false
+  - scope:
+      path: "_docs"
+    values:
+      layout: doc
+  - scope:
+      path: "_tutorials"
+    values:
+      layout: tutorial
+  - scope:
+      path: "_labs"
+    values:
+      layout: lab
 
 # Exclude from processing
 exclude:
@@ -49,3 +96,8 @@ exclude:
   - .idea/
   - .gitignore
   - .github/
+  - README.md
+  - DEPLOYMENT.md
+  - LICENSE
+  - config.toml
+  - config.yaml
