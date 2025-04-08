@@ -1,0 +1,49 @@
+{{- $title := .Get "title" -}}
+{{- $image := .Get "image" -}}
+{{- $color := .Get "color" | default "primary" -}}
+{{- $height := .Get "height" | default "auto" -}}
+{{- $byline := .Get "byline" -}}
+
+<div class="td-cover-block td-cover-block--height-{{ $height }} js-td-cover td-overlay td-overlay--dark -bg-{{ $color }}">
+  <div class="container td-overlay__inner">
+    <div class="row">
+      <div class="col-12">
+        <div class="text-center">
+          {{ with $title }}<h1 class="display-1 mt-0 mt-md-5 pb-4">{{ $title | html }}</h1>{{ end }}
+          {{ with .Inner }}
+          <div class="pt-3 lead">
+            {{ . | html }}
+          </div>
+          {{ end }}
+          {{ with $byline }}
+          <div class="pt-3 lead byline">
+            {{ $byline | html }}
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{ if $image }}
+  {{ if (findRE "^/" $image) }}
+    {{ $image := $image }}
+    <style>
+      .td-cover-block {
+        background-image: url('{{ $image | relURL }}');
+      }
+    </style>
+  {{ else }}
+    {{ $image := resources.Get $image }}
+    {{ if $image }}
+      {{ $image := $image.Resize "1920x" }}
+      <style>
+        .td-cover-block {
+          background-image: url('{{ $image.RelPermalink }}');
+        }
+      </style>
+    {{ else }}
+      {{ errorf "Cover image not found: %s" $image }}
+    {{ end }}
+  {{ end }}
+  {{ end }}
+</div>
