@@ -1,0 +1,47 @@
+---
+layout: home
+# Index page
+---
+
+<!-- Welcome Banner -->
+<div class="welcome-banner">
+  <h1>Welcome to Ollama Labs</h1>
+  <p>Your comprehensive resource for running Large Language Models locally</p>
+  <div class="action-buttons">
+    <a href="/tabs/docs/" class="btn btn-primary">Get Started</a>
+    <a href="https://github.com/ollama/ollama" class="btn btn-outline-primary">GitHub</a>
+  </div>
+</div>
+
+<!-- Features -->
+<div class="features">
+  <div class="feature">
+    <i class="fas fa-book fa-3x"></i>
+    <h3>Documentation</h3>
+    <p>Comprehensive guides on installation, configuration, and usage</p>
+  </div>
+  <div class="feature">
+    <i class="fas fa-flask fa-3x"></i>
+    <h3>Labs</h3>
+    <p>Hands-on exercises to build practical applications</p>
+  </div>
+  <div class="feature">
+    <i class="fas fa-code fa-3x"></i>
+    <h3>API Reference</h3>
+    <p>Details on integrating Ollama with your applications</p>
+  </div>
+</div>
+
+<!-- Latest Posts -->
+{% if site.posts.size > 0 %}
+<h2>Latest Updates</h2>
+<div class="posts">
+  {% for post in site.posts limit:3 %}
+  <div class="post-card">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <p class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
+    <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

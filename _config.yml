@@ -1,103 +1,52 @@
 # Site settings
 title: Ollama Labs
 tagline: Run Large Language Models Locally
-description: >-
+description: >
   Your comprehensive resource for Ollama - the tool that makes it easy to run large language models locally.
-baseurl: "" # Empty for user site, use "/ollama-labs" for project site if needed
-url: "https://ollama.collabnix.com" # Use your custom domain
-logo: "/assets/images/ollama-labs-logo.png"
-favicon_ico: "/assets/images/favicon.ico"
+url: "https://ollama.collabnix.com"
+baseurl: ""
+lang: en
+timezone: UTC
 
-# Social media
-twitter:
-  username: collabnix
-github_username: ajeetraina
-repository: ajeetraina/ollama-labs
+# Author settings
+author:
+  name: Collabnix Community
+  twitter: collabnix
+  github: ajeetraina
 
-# Build settings
-markdown: kramdown
-highlighter: rouge
-permalink: /:categories/:title/
+# GitHub settings
+github:
+  username: ajeetraina
+  repo: ollama-labs
 
 # Theme settings
-theme: jekyll-theme-chirpy # Using Chirpy theme for modern documentation
+theme: jekyll-theme-chirpy
 remote_theme: cotes2020/jekyll-theme-chirpy
+theme_mode: light
 
+# Jekyll plugins
 plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
+  - jekyll-archives
   - jekyll-redirect-from
 
-# Chirpy theme settings
+# Pagination
 paginate: 10
 paginate_path: /blog/page:num/
 
-# Dark/Light mode
-theme_mode: light
+# URLs
+permalink: /:categories/:title/
 
-# Comments system (optional - remove if not needed)
-comments:
-  active: false
-
-# Analytics (optional - add your Google Analytics ID)
-# google_analytics: UA-XXXXXXXXX-X
+# Collections
+collections:
+  tabs:
+    output: true
+    sort_by: order
 
 # TOC settings
 toc:
-  enabled: true
   min_level: 1
   max_level: 3
-
-# Collections for different content types
-collections:
-  docs:
-    output: true
-    sort_by: order
-  tutorials:
-    output: true
-    sort_by: order
-  labs:
-    output: true
-    sort_by: order
-
-# Default front matter
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: page
-      comments: false
-  - scope:
-      path: "_posts"
-    values:
-      layout: post
-      comments: false
-  - scope:
-      path: "_docs"
-    values:
-      layout: doc
-  - scope:
-      path: "_tutorials"
-    values:
-      layout: tutorial
-  - scope:
-      path: "_labs"
-    values:
-      layout: lab
-
-# Exclude from processing
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor
-  - .idea/
-  - .gitignore
-  - .github/
-  - README.md
-  - DEPLOYMENT.md
-  - LICENSE
-  - config.toml
-  - config.yaml
