@@ -1,9 +1,6 @@
 ---
 title: "Ollama Labs"
 description: "Your comprehensive resource for everything Ollama"
-geekdocNav: true
-geekdocAlign: center
-geekdocAnchor: true
 ---
 
 # Welcome to Ollama Labs
